@@ -31,7 +31,14 @@ def nuke(motherboard, blacklistids):
             servicefound = True
 
         finaltext = ("\nStop the service and process" if serviceisrunning else "") + ("\nSet service startup type to disabled" if servicefound else "") + ("\nDelete the main exe" if sys32exeinstalled else "") + ("\nUninstall all related drivers" if driversfound else "") + ("\nDelete from MSI dragon center" if foundindragoncenter else "") + ("\nDelete various dlls" if False else "") + ("\nBlacklist driver IDs" if blacklistids else "") + ("\nDelete various (mostly empty for some reason) folders I found when searching")
-        ctypes.windll.user32.MessageBoxW(0, "The following actions will be taken to destroy Nahimic:\n" + finaltext + "\n\nContinue?", "Continue?", 4)
+        if ctypes.windll.user32.MessageBoxW(0, "The following actions will be taken to destroy Nahimic:\n" + finaltext + "\n\nContinue?", "Continue?", 4) == 6:
+            if servicefound and serviceisrunning:
+                win32serviceutil.StopService("NahimicService")
+            if servicefound:
+                os.system("sc config NahimicService start=disabled")
+
+            if sys32exeinstalled:
+                os.remove("C:\Windows\System32\\NahimicService.exe")
 
 
 class Application(Ui_MainWindow):
