@@ -40,6 +40,34 @@ def nuke(motherboard, blacklistids):
             if sys32exeinstalled:
                 os.remove("C:\Windows\System32\\NahimicService.exe")
 
+            if driversfound:
+                os.system("pnputil /delete-driver avoluteess3.inf /force /uninstall")
+                os.system("pnputil /delete-driver a-volutenh3aposwc.inf /force /uninstall")
+                os.system("pnputil /delete-driver a-volutenh3aposwc.inf /force /uninstall")
+                os.system("pnputil /delete-driver avolutess3vad.inf /force /uninstall")
+                os.system("pnputil /delete-driver avolutess3vad.inf /force /uninstall")
+
+            if foundindragoncenter:
+                os.remove("C:\Program Files (x86)\MSI\One Dragon Center\\Nahimic")
+            
+            os.remove("C:\Windows\System32\A-Volute")
+            os.remove("C:\Windows\System32\\NahimicAPO3ConfiguratorDaemonModule.dll")
+            os.remove("C:\Windows\System32\\NahimicAPO4ConfiguratorDaemonModule.dll")
+            os.remove("C:\Windows\System32\\NahimicPnPAPO4ConfiguratorDaemonModule.dll")
+            os.remove("C:\Windows\System32\\NahimicService.ini")
+            os.remove("C:\Windows\System32\\NahimicSvc64.exe")
+            os.remove("C:\Windows\System32\\NAHIMICV3apo.dll")
+            os.remove("C:\Windows\System32\\NAHIMICV3NSControl.dll")
+            os.remove("C:\Windows\System32\\NAHIMICV3NSControlExpert.dll")
+            os.remove("C:\Windows\SysWOW64\\NahimicSvc32.exe")
+
+            localappdata = os.path.expandvars('%LOCALAPPDATA%')
+            os.remove(localappdata + "\Packages\A-Volute.Nahimic_w2gh52qy24etm")
+            os.remove(localappdata + "\NhNotifSys")
+
+            os.remove("C:\ProgramData\A-Volute")
+
+
 
 class Application(Ui_MainWindow):
     def __init__(self,window):
