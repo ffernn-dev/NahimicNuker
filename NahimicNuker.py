@@ -32,6 +32,7 @@ def nuke(motherboard, blacklistids):
 
         finaltext = ("\nStop the service and process" if serviceisrunning else "") + ("\nSet service startup type to disabled" if servicefound else "") + ("\nDelete the main exe" if sys32exeinstalled else "") + ("\nUninstall all related drivers" if driversfound else "") + ("\nDelete from MSI dragon center" if foundindragoncenter else "") + ("\nDelete various dlls" if False else "") + ("\nBlacklist driver IDs" if blacklistids else "") + ("\nDelete various (mostly empty for some reason) folders I found when searching")
         if ctypes.windll.user32.MessageBoxW(0, "The following actions will be taken to destroy Nahimic:\n" + finaltext + "\n\nContinue?", "Continue?", 4) == 6:
+            
             if servicefound and serviceisrunning:
                 win32serviceutil.StopService("NahimicService")
             if servicefound:
@@ -39,6 +40,7 @@ def nuke(motherboard, blacklistids):
 
             if sys32exeinstalled:
                 os.remove("C:\Windows\System32\\NahimicService.exe")
+                os.remove("C:\Windows\System32\\NahimicSvc64.exe")
 
             if driversfound:
                 os.system("pnputil /delete-driver avoluteess3.inf /force /uninstall")
@@ -48,9 +50,9 @@ def nuke(motherboard, blacklistids):
                 os.system("pnputil /delete-driver avolutess3vad.inf /force /uninstall")
 
             if foundindragoncenter:
-                os.remove("C:\Program Files (x86)\MSI\One Dragon Center\\Nahimic")
+                os.rmdir("C:\Program Files (x86)\MSI\One Dragon Center\\Nahimic")
             
-            os.remove("C:\Windows\System32\A-Volute")
+            os.rmdir("C:\Windows\System32\A-Volute")
             os.remove("C:\Windows\System32\\NahimicAPO3ConfiguratorDaemonModule.dll")
             os.remove("C:\Windows\System32\\NahimicAPO4ConfiguratorDaemonModule.dll")
             os.remove("C:\Windows\System32\\NahimicPnPAPO4ConfiguratorDaemonModule.dll")
@@ -62,10 +64,10 @@ def nuke(motherboard, blacklistids):
             os.remove("C:\Windows\SysWOW64\\NahimicSvc32.exe")
 
             localappdata = os.path.expandvars('%LOCALAPPDATA%')
-            os.remove(localappdata + "\Packages\A-Volute.Nahimic_w2gh52qy24etm")
-            os.remove(localappdata + "\NhNotifSys")
+            os.rmdir(localappdata + "\Packages\A-Volute.Nahimic_w2gh52qy24etm")
+            os.rmdir(localappdata + "\NhNotifSys")
 
-            os.remove("C:\ProgramData\A-Volute")
+            os.rmdir("C:\ProgramData\A-Volute")
 
 
 
