@@ -19,6 +19,8 @@ def nuke(motherboard, blacklistids):
 
         if motherboard == "MSI":
             foundindragoncenter = os.path.exists("C:\Program Files (x86)\MSI\One Dragon Center\\Nahimic")
+        else:
+            foundindragoncenter = False
         
         try:
             serviceisrunning = True if win32serviceutil.QueryServiceStatus("NahimicService")[1] == 4 else False
@@ -65,7 +67,7 @@ def nuke(motherboard, blacklistids):
 
             localappdata = os.path.expandvars('%LOCALAPPDATA%')
             os.rmdir(localappdata + "\Packages\A-Volute.Nahimic_w2gh52qy24etm")
-            os.rmdir(localappdata + "\NhNotifSys")
+            os.rmdir(localappdata + "\\NhNotifSys")
 
             os.rmdir("C:\ProgramData\A-Volute")
 
